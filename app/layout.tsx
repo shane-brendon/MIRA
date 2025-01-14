@@ -8,7 +8,9 @@ import { ThemeProvider } from "next-themes"
 import Link from "next/link"
 import "./globals.css"
 import Image from "next/image"
-
+import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar"
+import { AppSidebar } from "@/components/app-sidebar"
+ 
 const defaultUrl = process.env.VERCEL_URL
   ? `https://${process.env.VERCEL_URL}`
   : "http://localhost:3000"
@@ -38,37 +40,13 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <main className="min-h-screen flex items-center justify-center">
-            <div className="flex items-center 2xl:bg-white ">
-              <div className="relative hidden xl:block">
-                <div className="p-5">
-                  <Image
-                    src={"/img/login.svg"}
-                    width={560}
-                    height={920}
-                    alt=""
-                    className="rounded-lg"
-                  />
-
-                  <div className="absolute bottom-10 text-white left-10">
-                    <h1 className="text-3xl font-bold max-w-[380px] mb-6">
-                      Keep track of your money and save for your future
-                    </h1>
-                    <div className="text-sm max-w-[430px]">
-                      <p>
-                        Personal finance app puts you in control of your
-                        spending. Track transactions, set budgets, and add to
-                        savings pots easily.
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div className="h-screen grid place-items-center px-5 xl:px-[140px]">
-                {children}
-              </div>
-            </div>
-          </main>
+          <SidebarProvider>
+            <AppSidebar />
+            <main>
+              <SidebarTrigger />
+              {children}
+            </main>
+          </SidebarProvider>
         </ThemeProvider>
       </body>
     </html>
