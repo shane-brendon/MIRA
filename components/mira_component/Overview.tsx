@@ -1,4 +1,7 @@
 import React from "react"
+import SavingSvg from "../icons/SavingSvg"
+import { ChevronRight } from "lucide-react"
+import { DonutPieChart } from "../piechart"
 
 const Overview = async () => {
   return (
@@ -20,26 +23,165 @@ const Overview = async () => {
           </div>
         </div>
 
-        <div className="flex">
+        <div className="flex gap-8">
           <div className="w-3/5">
-            <div className="bg-white w-full p-6">
-              <div className="flex justify-between">
-                <span>pots</span>
-                <span>see Details</span>
+            {/* pots */}
+            <div className="bg-white w-full p-8 rounded-md  mb-5">
+              <div className="flex justify-between items-center">
+                <span className="font-bold text-xl">pots</span>
+                <span className="text-gray-400 flex items-center">
+                  see Details <ChevronRight />
+                </span>
               </div>
-              <div className="flex">
-                <div className="">
-                  <div className=""></div>
+              <div className="flex justify-between gap-6 items-center">
+                <div className="flex items-center gap-4 bg-background py-5 pl-4 rounded-md w-2/5">
+                  <SavingSvg />
                   <div className="">
-                    <span>Total Saved</span>
-                    <span>$850</span>
+                    <span className="text-gray-500 mb-3 block">
+                      Total Saved
+                    </span>
+                    <span className="block text-3xl font-bold">$850</span>
                   </div>
                 </div>
-                <div className="">
-                  <div className=""></div>
-                  <span>Saving</span>
-                  <span>S$159</span>
+                <div className="w-3/5">
+                  <div className="flex flex-wrap pl-5 gap-y-5">
+                    <div className="w-1/2 relative pl-4">
+                      <div className=" w-1 h-full absolute left-0 top-0 bg-green-500 rounded-lg"></div>
+                      <span className="text-xs text-gray-500">Saving</span>
+                      <span className="block text-sm font-bold">$159</span>
+                    </div>
+                    <div className="w-1/2 relative pl-4">
+                      <div className=" w-1 h-full absolute left-0 top-0 bg-cyan-500 rounded-lg"></div>
+
+                      <span className="text-xs text-gray-500">Saving</span>
+                      <span className="block text-sm font-bold">$159</span>
+                    </div>
+
+                    <div className="w-1/2 relative pl-4">
+                      <div className=" w-1 h-full absolute left-0 top-0 bg-blue-950 rounded-lg"></div>
+
+                      <span className="text-xs text-gray-500">Saving</span>
+                      <span className="block text-sm font-bold">$159</span>
+                    </div>
+                    <div className="w-1/2 relative pl-4">
+                      <div className=" w-1 h-full absolute left-0 top-0 bg-yellow-600 rounded-lg"></div>
+
+                      <span className="text-xs text-gray-500">Saving</span>
+                      <span className="block text-sm font-bold">$159</span>
+                    </div>
+                  </div>
                 </div>
+              </div>
+            </div>
+            {/* transaction */}
+            <div className="bg-white w-full p-8 rounded-md">
+              <div className="flex justify-between items-center mb-8">
+                <span className="font-bold text-xl">Transactions</span>
+                <span className="text-gray-400 flex items-center">
+                  see Details <ChevronRight />
+                </span>
+              </div>
+              <div className="flex justify-between items-center pb-5  mb-5 border-b">
+                <div className="flex items-center gap-4">
+                  <div className="w-8 h-8 bg-lime-400 grid place-items-center rounded-full font-bold">
+                    E
+                  </div>
+                  <div className="text-sm font-bold">Emma Richardson</div>
+                </div>
+                <div className="text-right">
+                  <span className="text-sm font-bold mb-2 block text-lime-500">
+                    +$75.50
+                  </span>
+                  <span className="block text-gray-500 text-xs">
+                    19 Aug 2024
+                  </span>
+                </div>
+              </div>
+              <div className="flex justify-between items-center pb-5  mb-5 border-b">
+                <div className="flex items-center gap-4">
+                  <div className="w-8 h-8 bg-lime-400 grid place-items-center rounded-full font-bold">
+                    E
+                  </div>
+                  <div className="text-sm font-bold">Emma Richardson</div>
+                </div>
+                <div className="text-right">
+                  <span className="text-sm font-bold mb-2 block">+$75.50</span>
+                  <span className="block text-gray-500 text-xs">
+                    19 Aug 2024
+                  </span>
+                </div>
+              </div>
+              <div className="flex justify-between items-center pb-5  mb-5 border-b">
+                <div className="flex items-center gap-4">
+                  <div className="w-8 h-8 bg-lime-400 grid place-items-center rounded-full font-bold">
+                    E
+                  </div>
+                  <div className="text-sm font-bold">Emma Richardson</div>
+                </div>
+                <div className="text-right">
+                  <span className="text-sm font-bold mb-2 block">+$75.50</span>
+                  <span className="block text-gray-500 text-xs">
+                    19 Aug 2024
+                  </span>
+                </div>
+              </div>
+              <div className="flex justify-between items-center pb-5  mb-5 border-b">
+                <div className="flex items-center gap-4">
+                  <div className="w-8 h-8 bg-lime-400 grid place-items-center rounded-full font-bold">
+                    E
+                  </div>
+                  <div className="text-sm font-bold">Emma Richardson</div>
+                </div>
+                <div className="text-right">
+                  <span className="text-sm font-bold mb-2 block">+$75.50</span>
+                  <span className="block text-gray-500 text-xs">
+                    19 Aug 2024
+                  </span>
+                </div>
+              </div>
+              <div className="flex justify-between items-center pb-5  mb-5 border-b">
+                <div className="flex items-center gap-4">
+                  <div className="w-8 h-8 bg-lime-400 grid place-items-center rounded-full font-bold">
+                    E
+                  </div>
+                  <div className="text-sm font-bold">Emma Richardson</div>
+                </div>
+                <div className="text-right">
+                  <span className="text-sm font-bold mb-2 block text-lime-500">
+                    +$75.50
+                  </span>
+                  <span className="block text-gray-500 text-xs">
+                    19 Aug 2024
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div className="w-2/5 ">
+            <div className="mb-5 bg-white p-8 rounded-md">
+              <div className="flex justify-between items-center">
+                <span className="font-bold text-xl">Budgets</span>
+                <span className="text-gray-400 flex items-center">
+                  see Details <ChevronRight />
+                </span>
+              </div>
+              <DonutPieChart />
+            </div>
+            <div className="mb-5 bg-white p-8 rounded-md">
+              <div className="flex justify-between items-center mb-8">
+                <span className="font-bold text-xl">Recurring Bills</span>
+                <span className="text-gray-400 flex items-center">
+                  see Details <ChevronRight />
+                </span>
+              </div>
+
+              <div className="flex justify-between border-l-4 px-4 rounded-xl bg-background py-5 border-l-teal-950 mb-3">
+                <span>Paid Bills</span>
+                <span className="text-sm font-bold mb-2 block">$190</span>
+              </div>
+              <div className="flex justify-between border-l-4 px-4 rounded-xl bg-background py-5 border-l-teal-500 mb-3">
+                <span>Paid Bills</span>
+                <span className="text-sm font-bold mb-2 block">$190</span>
               </div>
             </div>
           </div>
