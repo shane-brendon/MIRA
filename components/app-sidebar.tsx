@@ -4,6 +4,7 @@ import {
   ChartPie,
   Home,
   Inbox,
+  ReceiptText,
   Search,
   Settings,
 } from "lucide-react"
@@ -18,6 +19,7 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@/components/ui/sidebar"
+import SavingSvg from "./icons/SavingSvg"
 
 // Menu items.
 const items = [
@@ -32,19 +34,19 @@ const items = [
     icon: ArrowDownUp,
   },
   {
-    title: "Budget",
-    url: "/budget",
+    title: "Budgets",
+    url: "/budgets",
     icon: ChartPie,
   },
   {
-    title: "Search",
-    url: "#",
-    icon: Search,
+    title: "Pots",
+    url: "/pots",
+    icon: SavingSvg,
   },
   {
-    title: "Settings",
-    url: "#",
-    icon: Settings,
+    title: "Recurring bills",
+    url: "/bills",
+    icon: ReceiptText ,
   },
 ]
 

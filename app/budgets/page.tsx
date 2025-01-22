@@ -12,7 +12,7 @@ import {
 import { ChevronRight, Ellipsis, Plus } from "lucide-react"
 import React from "react"
 
-const Budget = () => {
+const Budgets = () => {
   return (
     <div className="container">
       <div className="flex justify-between">
@@ -88,4 +88,4 @@ const Budget = () => {
   )
 }
 
-export default Budget
+export default Budgets

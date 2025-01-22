@@ -27,7 +27,7 @@ const Overview = async () => {
           <div className="w-3/5">
             {/* pots */}
             <div className="bg-white w-full p-8 rounded-md  mb-5">
-              <div className="flex justify-between items-center">
+              <div className="flex justify-between items-center mb-5">
                 <span className="font-bold text-xl">pots</span>
                 <span className="text-gray-400 flex items-center">
                   see Details <ChevronRight />
