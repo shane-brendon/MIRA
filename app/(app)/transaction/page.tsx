@@ -8,11 +8,18 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table"
+import { Button } from "@/components/ui/button"
+import { Plus } from "lucide-react"
 
 const Transaction = () => {
   return (
     <div className="container">
-      <h1 className="text-3xl text-gray-900 font-bold mb-8">Transactions</h1>
+      <div className="flex justify-between">
+        <h1 className="text-3xl text-gray-900 font-bold mb-8">Transaction</h1>
+        <Button>
+          <Plus /> Add New Transaction
+        </Button>
+      </div>
       <div className="bg-white p-8 rounded-md">
         <Table>
           <TableHeader>

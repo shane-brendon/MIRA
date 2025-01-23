@@ -33,22 +33,6 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={geistSans.className} suppressHydrationWarning>
-      {/* <body className="bg-background text-foreground">
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="light"
-          enableSystem
-          disableTransitionOnChange
-        >
-          <SidebarProvider>
-            <AppSidebar />
-            <main className="w-full">
-              <SidebarTrigger />
-              {children}
-            </main>
-          </SidebarProvider>
-        </ThemeProvider>
-      </body> */}
       <body className="bg-background text-foreground">
         <ThemeProvider
           attribute="class"
