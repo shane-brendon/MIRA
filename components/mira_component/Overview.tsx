@@ -125,36 +125,6 @@ const Overview = async () => {
                   </span>
                 </div>
               </div>
-              <div className="flex justify-between items-center pb-5  mb-5 border-b">
-                <div className="flex items-center gap-4">
-                  <div className="w-8 h-8 bg-lime-400 grid place-items-center rounded-full font-bold">
-                    E
-                  </div>
-                  <div className="text-sm font-bold">Emma Richardson</div>
-                </div>
-                <div className="text-right">
-                  <span className="text-sm font-bold mb-2 block">+$75.50</span>
-                  <span className="block text-gray-500 text-xs">
-                    19 Aug 2024
-                  </span>
-                </div>
-              </div>
-              <div className="flex justify-between items-center pb-5  mb-5 border-b">
-                <div className="flex items-center gap-4">
-                  <div className="w-8 h-8 bg-lime-400 grid place-items-center rounded-full font-bold">
-                    E
-                  </div>
-                  <div className="text-sm font-bold">Emma Richardson</div>
-                </div>
-                <div className="text-right">
-                  <span className="text-sm font-bold mb-2 block text-lime-500">
-                    +$75.50
-                  </span>
-                  <span className="block text-gray-500 text-xs">
-                    19 Aug 2024
-                  </span>
-                </div>
-              </div>
             </div>
           </div>
           <div className="w-2/5 ">
