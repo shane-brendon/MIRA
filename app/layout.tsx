@@ -10,7 +10,7 @@ import "./globals.css"
 import Image from "next/image"
 import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar"
 import { AppSidebar } from "@/components/app-sidebar"
- 
+
 const defaultUrl = process.env.VERCEL_URL
   ? `https://${process.env.VERCEL_URL}`
   : "http://localhost:3000"
@@ -33,7 +33,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={geistSans.className} suppressHydrationWarning>
-      <body className="bg-background text-foreground">
+      {/* <body className="bg-background text-foreground">
         <ThemeProvider
           attribute="class"
           defaultTheme="light"
@@ -47,6 +47,16 @@ export default function RootLayout({
               {children}
             </main>
           </SidebarProvider>
+        </ThemeProvider>
+      </body> */}
+      <body className="bg-background text-foreground">
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="light"
+          enableSystem
+          disableTransitionOnChange
+        >
+          <main className="w-full">{children}</main>
         </ThemeProvider>
       </body>
     </html>
