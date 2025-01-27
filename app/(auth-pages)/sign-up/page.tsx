@@ -20,7 +20,7 @@ export default async function Signup(props: {
 
   return (
     <>
-      <form className="flex flex-col w-full sm:w-[560px]">
+      <form className="flex flex-col w-full sm:w-[560px]bg-white p-8 rounded-lg bg-white">
         <h1 className="text-2xl font-medium">Sign up</h1>
         <div className="flex flex-col gap-2 [&>input]:mb-3 mt-8">
           <Label htmlFor="name">name</Label>

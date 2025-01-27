@@ -6,7 +6,7 @@ export default async function Layout({
   children: React.ReactNode;
 }) {
   return (
-    <div className="flex items-center 2xl:bg-white ">
+    <div className="flex items-center 2xl:bg-white justify-center overflow-hidden">
     <div className="relative hidden xl:block">
       <div className="p-5">
         <Image
@@ -31,7 +31,7 @@ export default async function Layout({
         </div>
       </div>
     </div>
-    <div className="h-screen grid place-items-center px-5 xl:px-[140px]">
+    <div className="h-screen grid place-items-center px-5 w-full md:w-1/2  xl:px-[140px]">
       {children}
     </div>
   </div>

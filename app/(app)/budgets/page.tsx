@@ -21,8 +21,8 @@ const Budgets = () => {
           <Plus /> Add New Budget
         </Button>
       </div>
-      <div className="flex gap-8">
-        <div className="w-3/5 ">
+      <div className="flex flex-col md:flex-row md:gap-8">
+        <div className="md:w-3/5 ">
           <div className="mb-5 bg-white p-8 rounded-md">
             <DonutPieChart />
           </div>

@@ -8,23 +8,23 @@ const Overview = async () => {
     <section className="">
       <div className="container">
         <h1 className="text-3xl text-gray-900 font-bold">Overview</h1>
-        <div className="flex w-full justify-between pt-8 gap-3 flex-col md:flex-row md:gap-6 mb-8">
-          <div className=" bg-gray-900 text-white py-6 px-6 rounded-sm w-full max-w-[338px]">
+        <div className="flex w-full justify-between pt-8 gap-3 flex-col md:flex-row md:gap-6 mb-5">
+          <div className=" bg-gray-900 text-white py-6 px-6 rounded-sm w-full md:max-w-[338px]">
             <span className=" text-sm">Current Balance</span>
             <span className="block font-bold text-3xl pt-3">$4,836.00</span>
           </div>
-          <div className=" bg-white text-gray-900 py-6 px-6 rounded-sm w-full max-w-[338px]">
+          <div className=" bg-white text-gray-900 py-6 px-6 rounded-sm w-full md:max-w-[338px]">
             <span className=" text-sm">Current Balance</span>
             <span className="block font-bold text-3xl pt-3">$4,836.00</span>
           </div>
-          <div className=" bg-white text-gray-900 py-6 px-6 rounded-sm w-full max-w-[338px]">
+          <div className=" bg-white text-gray-900 py-6 px-6 rounded-sm w-full md:max-w-[338px]">
             <span className=" text-sm">Current Balance</span>
             <span className="block font-bold text-3xl pt-3">$4,836.00</span>
           </div>
         </div>
 
-        <div className="flex gap-8">
-          <div className="w-3/5">
+        <div className="flex gap-5 flex-col md:flex-row">
+          <div className="md:w-3/5">
             {/* pots */}
             <div className="bg-white w-full p-8 rounded-md  mb-5">
               <div className="flex justify-between items-center mb-5">
@@ -33,8 +33,8 @@ const Overview = async () => {
                   see Details <ChevronRight />
                 </span>
               </div>
-              <div className="flex justify-between gap-6 items-center">
-                <div className="flex items-center gap-4 bg-background py-5 pl-4 rounded-md w-2/5">
+              <div className="flex gap-6 items-center flex-col md:flex-row md:justify-center">
+                <div className="flex items-center gap-4 bg-background py-5 pl-4 rounded-md w-full md:w-2/5">
                   <SavingSvg />
                   <div className="">
                     <span className="text-gray-500 mb-3 block">
@@ -43,7 +43,7 @@ const Overview = async () => {
                     <span className="block text-3xl font-bold">$850</span>
                   </div>
                 </div>
-                <div className="w-3/5">
+                <div className="w-full md:w-3/5">
                   <div className="flex flex-wrap pl-5 gap-y-5">
                     <div className="w-1/2 relative pl-4">
                       <div className=" w-1 h-full absolute left-0 top-0 bg-green-500 rounded-lg"></div>
@@ -127,7 +127,7 @@ const Overview = async () => {
               </div>
             </div>
           </div>
-          <div className="w-2/5 ">
+          <div className="md:w-2/5 ">
             <div className="mb-5 bg-white p-8 rounded-md">
               <div className="flex justify-between items-center">
                 <span className="font-bold text-xl">Budgets</span>

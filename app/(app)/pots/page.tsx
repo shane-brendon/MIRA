@@ -5,14 +5,14 @@ import React from "react"
 
 const Pots = () => {
   return (
-    <div className="container">
+    <div className="container pb-5">
       <div className="flex justify-between">
         <h1 className="text-3xl text-gray-900 font-bold mb-8">Pots</h1>
         <Button>
           <Plus /> Add New Budget
         </Button>
       </div>
-      <div className="grid grid-cols-2 gap-4">
+      <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
         <div className=" bg-white p-8 rounded-md w-full">
           <div className="flex justify-between mb-5">
             <div className="flex items-center gap-4">

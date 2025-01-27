@@ -12,8 +12,8 @@ import React from "react"
 
 const Bills = () => {
   return (
-    <div className="container">
-      <div className="flex justify-between">
+    <div className="container pb-5">
+      <div className="flex justify-between flex-col mb-5 md:flex-row md:mb-0">
         <h1 className="text-3xl text-gray-900 font-bold mb-8">
           Recurring Bills
         </h1>
@@ -21,11 +21,11 @@ const Bills = () => {
           <Plus /> Add Recurring Bills
         </Button>
       </div>
-      <div className="flex gap-8 items-start">
-        <div className=" w-2/6">
+      <div className="flex gap-5 items-start flex-col md:flex-row">
+        <div className="w-full md:w-2/6">
           <div className="p-6 bg-gray-900 text-white rounded-md">
             <ReceiptText />
-            <span className="mt-8 block text-sm mb-3 opacity-80">
+            <span className="mt-5 block text-sm mb-3 opacity-80">
               Total Bills
             </span>
             <span className="block font-bold text-3xl">$384.98</span>

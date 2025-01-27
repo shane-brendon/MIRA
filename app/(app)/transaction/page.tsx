@@ -13,8 +13,8 @@ import { Plus } from "lucide-react"
 
 const Transaction = () => {
   return (
-    <div className="container">
-      <div className="flex justify-between">
+    <div className="container pb-5">
+      <div className="flex justify-between flex-col mb-5 md:flex-row md:mb-0">
         <h1 className="text-3xl text-gray-900 font-bold mb-8">Transaction</h1>
         <Button>
           <Plus /> Add New Transaction
