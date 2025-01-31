@@ -1,3 +1,4 @@
+import { DialogBtn } from "@/components/dialog"
 import { DonutPieChart } from "@/components/piechart"
 import { Button } from "@/components/ui/button"
 import { Progress } from "@/components/ui/progress"
@@ -20,6 +21,7 @@ const Budgets = () => {
         <Button>
           <Plus /> Add New Budget
         </Button>
+        <DialogBtn/>
       </div>
       <div className="flex flex-col md:flex-row md:gap-8">
         <div className="md:w-3/5 ">
