@@ -7,7 +7,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import { Ellipsis } from "lucide-react"
-import { DeleteDialog, EditDialog } from "./dialog"
+import { DeleteDialog, EditDialog } from "./dialog_budget_controller"
 
 export function BudgetsDropdown({ id }: any) {
   return (

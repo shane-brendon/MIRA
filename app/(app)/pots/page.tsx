@@ -1,16 +1,23 @@
+import { AddDialog } from "@/components/dialog_pots_controller"
 import { Button } from "@/components/ui/button"
 import { Progress } from "@/components/ui/progress"
 import { Ellipsis, Plus } from "lucide-react"
 import React from "react"
 
 const Pots = () => {
+  const themes = [
+    { name: "Green", color: "#277C78" },
+    { name: "Yellow", color: "#F2CDAC" },
+    { name: "Cyan", color: "#82C9D7" },
+    { name: "Navy", color: "#626070" },
+    { name: "Red", color: "#C94736" },
+    { name: "Purple", color: "#826CB0" },
+  ]
   return (
     <div className="container pb-5">
       <div className="flex justify-between">
         <h1 className="text-3xl text-gray-900 font-bold mb-8">Pots</h1>
-        <Button>
-          <Plus /> Add New Budget
-        </Button>
+        <AddDialog text={"Add New Pot"}/>
       </div>
       <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
         <div className=" bg-white p-8 rounded-md w-full">

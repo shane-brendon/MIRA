@@ -1,14 +1,9 @@
-import { AddDialog } from "@/components/dialog"
+import { AddDialog } from "@/components/dialog_budget_controller"
 import { BudgetsDropdown } from "@/components/dropdownMenu"
 import { DonutPieChart } from "@/components/piechart"
 import { Button } from "@/components/ui/button"
 import { Progress } from "@/components/ui/progress"
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableRow,
-} from "@/components/ui/table"
+import { Table, TableBody, TableCell, TableRow } from "@/components/ui/table"
 import { ChevronRight, Ellipsis, Plus } from "lucide-react"
 import React from "react"
 
@@ -22,15 +17,6 @@ const Budgets = async () => {
     console.error("Error fetching budgets:", error.message)
     return null
   }
-
-  const themes = [
-    { name: "Green", color: "#277C78" },
-    { name: "Yellow", color: "#F2CDAC" },
-    { name: "Cyan", color: "#82C9D7" },
-    { name: "Navy", color: "#626070" },
-    { name: "Red", color: "#C94736" },
-    { name: "Purple", color: "#826CB0" },
-  ]
 
   return (
     <div className="container">
@@ -56,14 +42,23 @@ const Budgets = async () => {
 export default Budgets
 
 function BudgetItem({ data }: any) {
+  const themes = [
+    { name: "Green", color: "#277C78" },
+    { name: "Yellow", color: "#F2CDAC" },
+    { name: "Cyan", color: "#82C9D7" },
+    { name: "Navy", color: "#626070" },
+    { name: "Red", color: "#C94736" },
+    { name: "Purple", color: "#826CB0" },
+  ]
+  const color = themes.find((element) => element.name === data.theme)?.color;
   return (
     <div className="mb-5 bg-white p-8 rounded-md">
       <div className="flex justify-between mb-5">
         <div className="flex items-center gap-4">
-          <span className="block w-4 h-4 bg-cyan-900 rounded-3xl" />
+          <span className={`block w-4 h-4 bg-[${color}] rounded-3xl`} />
           <div className="font-bold text-xl">{data.title}</div>
         </div>
-        <BudgetsDropdown id={data.id}/>
+        <BudgetsDropdown id={data.id} />
       </div>
       <span className="text-gray-500 mb-4 inline-block">
         Maximum of RS {data.total}
