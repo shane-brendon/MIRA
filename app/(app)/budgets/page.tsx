@@ -1,4 +1,5 @@
-import { DialogBtn } from "@/components/dialog"
+import { AddDialog } from "@/components/dialog"
+import { Dropdown } from "@/components/dropdownMenu"
 import { DonutPieChart } from "@/components/piechart"
 import { Button } from "@/components/ui/button"
 import { Progress } from "@/components/ui/progress"
@@ -18,10 +19,7 @@ const Budgets = () => {
     <div className="container">
       <div className="flex justify-between">
         <h1 className="text-3xl text-gray-900 font-bold mb-8">Budget</h1>
-        <Button>
-          <Plus /> Add New Budget
-        </Button>
-        <DialogBtn/>
+        <AddDialog text={"Add New Budget"}/>
       </div>
       <div className="flex flex-col md:flex-row md:gap-8">
         <div className="md:w-3/5 ">
@@ -36,9 +34,7 @@ const Budgets = () => {
                 <span className="block w-4 h-4 bg-cyan-900 rounded-3xl" />
                 <div className="font-bold text-xl">Entertainment</div>
               </div>
-              <button>
-                <Ellipsis />
-              </button>
+              <Dropdown />
             </div>
             <span className="text-gray-500 mb-4 inline-block">
               Maximum of $50.00

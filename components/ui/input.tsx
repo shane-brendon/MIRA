@@ -23,7 +23,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
         <input
           type={type}
           className={cn(
-            "w-full bg-transparent py-2 pl-3 pr-3 placeholder:text-muted-foreground focus:outline-none disabled:cursor-not-allowed",
+            "w-full bg-transparent py-2 px-0 placeholder:text-muted-foreground focus:outline-none disabled:cursor-not-allowed",
             children && "pr-10"
           )}
           ref={ref}
