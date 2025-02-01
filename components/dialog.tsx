@@ -25,12 +25,40 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Plus } from "lucide-react"
 import { useState } from "react"
+import { createClient } from "@/utils/supabase/client"
 
 // craete
-export function AddDialog({ text }: any) {
+export function AddDialog({ text, title }: any) {
   const [maxSpend, setMaxSpend] = useState("")
   const [theme, setTheme] = useState("")
   const [category, setCategory] = useState("")
+  const [isSubmitting, setIsSubmitting] = useState(false)
+
+  const supabase = createClient()
+  const themes = [
+    { name: "Green", color: "#277C78" },
+    { name: "Yellow", color: "#F2CDAC" },
+    { name: "Cyan", color: "#82C9D7" },
+    { name: "Navy", color: "#626070" },
+    { name: "Red", color: "#C94736" },
+    { name: "Purple", color: "#826CB0" },
+  ]
+  const CreateBudget = async () => {
+    try {
+      const {
+        data: { user },
+      } = await supabase.auth.getUser()
+
+      const { data, error } = await supabase
+        .from("budget")
+        .insert([
+          { title: category, total: maxSpend, theme: theme, user_id: user?.id },
+        ])
+        .select()
+    } catch (error) {
+      console.log(error)
+    }
+  }
   return (
     <Dialog>
       <DialogTrigger asChild>
@@ -95,7 +123,7 @@ export function AddDialog({ text }: any) {
                 onChange={(e) => setMaxSpend(e.target.value)}
                 className="col-span-4"
                 type="number"
-                placeholder="e.g Rs 3000"                                                                           
+                placeholder="e.g Rs 3000"
               />
             </div>
             <div className="grid grid-cols-4 items-center gap-2">
@@ -107,7 +135,7 @@ export function AddDialog({ text }: any) {
               </Label>
               <Select value={theme} onValueChange={(e) => setTheme(e)}>
                 <SelectTrigger className="col-span-4 rounded-[8px] bg-white">
-                <SelectValue
+                  <SelectValue
                     placeholder="Select a theme"
                     className="text-black"
                   />
@@ -115,49 +143,35 @@ export function AddDialog({ text }: any) {
                 <SelectContent>
                   <SelectGroup>
                     <SelectLabel>Theme</SelectLabel>
-                    <SelectItem value="Green">
-                      <div className="flex items-center gap-4">
-                        <div className="w-4 h-4 bg-[#277C78] rounded-full inline-block" />
-                        Green
-                      </div>
-                    </SelectItem>
-                    <SelectItem value="Yellow">
-                      <div className="flex items-center gap-4">
-                        <div className="w-4 h-4 bg-[#F2CDAC] rounded-full inline-block" />
-                        Yellow
-                      </div>
-                    </SelectItem>
-                    <SelectItem value="Cyan">
-                      <div className="flex items-center gap-4">
-                        <div className="w-4 h-4 bg-[#82C9D7] rounded-full inline-block" />
-                        Cyan
-                      </div>
-                    </SelectItem>
-                    <SelectItem value="Navy">
-                      <div className="flex items-center gap-4">
-                        <div className="w-4 h-4 bg-[#626070] rounded-full inline-block" />
-                        Navy
-                      </div>
-                    </SelectItem>
-                    <SelectItem value="Red">
-                      <div className="flex items-center gap-4">
-                        <div className="w-4 h-4 bg-[#C94736] rounded-full inline-block" />
-                        Red
-                      </div>
-                    </SelectItem>
-                    <SelectItem value="Purple">
-                      <div className="flex items-center gap-4">
-                        <div className="w-4 h-4 bg-[#826CB0] rounded-full inline-block" />
-                        Purple
-                      </div>
-                    </SelectItem>
+                    {themes.map((theme) => (
+                      <SelectItem key={theme.name} value={theme.name}>
+                        <div className="flex items-center gap-4">
+                          <div
+                            className="w-4 h-4 rounded-full inline-block"
+                            style={{ backgroundColor: theme.color }}
+                          />
+                          {theme.name}
+                        </div>
+                      </SelectItem>
+                    ))}
                   </SelectGroup>
                 </SelectContent>
               </Select>
             </div>
           </div>
           <DialogFooter>
-            <Button type="submit">Save changes</Button>
+            <Button
+              type="submit"
+              onClick={() => {
+                CreateBudget()
+                setIsSubmitting(true)
+              }}
+              className={
+                isSubmitting ? " cursor-not-allowed pointer-events-none" : ""
+              }
+            >
+              Save changes
+            </Button>
           </DialogFooter>
         </form>
       </DialogContent>
@@ -165,12 +179,33 @@ export function AddDialog({ text }: any) {
   )
 }
 // update
-export function EditDialog({ text }: any) {
+export function EditDialog({ text, id }: any) {
   const [open, setOpen] = useState(false)
   const [maxSpend, setMaxSpend] = useState("")
   const [theme, setTheme] = useState("")
   const [category, setCategory] = useState("")
 
+  const updateFields: Record<string, any> = {}
+
+  if (category !== undefined && category !== null && category !== "")
+    updateFields.title = category
+  if (maxSpend !== undefined && maxSpend !== null && maxSpend !== "")
+    updateFields.total = maxSpend
+  if (theme !== undefined && theme !== null && theme !== "")
+    updateFields.theme = theme
+
+  const supabase = createClient()
+  const updateBudget = async () => {
+    try {
+      const { data, error } = await supabase
+        .from("budget")
+        .update(updateFields)
+        .eq("id", id)
+        .select()
+    } catch (error) {
+      console.log(error)
+    }
+  }
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
@@ -242,7 +277,7 @@ export function EditDialog({ text }: any) {
                 onChange={(e) => setMaxSpend(e.target.value)}
                 className="col-span-4"
                 type="number"
-                placeholder="e.g Rs 3000"                                                                           
+                placeholder="e.g Rs 3000"
               />
             </div>
             <div className="grid grid-cols-4 items-center gap-2">
@@ -254,7 +289,7 @@ export function EditDialog({ text }: any) {
               </Label>
               <Select value={theme} onValueChange={(e) => setTheme(e)}>
                 <SelectTrigger className="col-span-4 rounded-[8px] bg-white">
-                <SelectValue
+                  <SelectValue
                     placeholder="Select a theme"
                     className="text-black"
                   />
@@ -304,7 +339,9 @@ export function EditDialog({ text }: any) {
             </div>
           </div>
           <DialogFooter>
-            <Button type="submit">Save changes</Button>
+            <Button type="submit" onClick={() => updateBudget()}>
+              Save changes
+            </Button>
           </DialogFooter>
         </form>
       </DialogContent>
@@ -312,8 +349,17 @@ export function EditDialog({ text }: any) {
   )
 }
 //delete
-export function DeleteDialog({ text }: any) {
+export function DeleteDialog({ text, id }: any) {
   const [open, setOpen] = useState(false)
+
+  const supabase = createClient()
+  const deleteBudget = async () => {
+    try {
+      const { error } = await supabase.from("budget").delete().eq("id", id)
+    } catch (error) {
+      console.log(error)
+    }
+  }
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
@@ -321,7 +367,7 @@ export function DeleteDialog({ text }: any) {
           variant="ghost"
           className="w-full text-left text-red-700 px-4"
           onClick={(e) => {
-            e.preventDefault() // Prevents dropdown from closing
+            e.preventDefault()
             setOpen(true)
           }}
         >
@@ -335,13 +381,28 @@ export function DeleteDialog({ text }: any) {
         <DialogHeader>
           <DialogTitle>Delete ‘Entertainment’?</DialogTitle>
           <DialogDescription>
-          Are you sure you want to delete this budget? This action cannot be reversed, and all the data inside it will be removed forever.
+            Are you sure you want to delete this budget? This action cannot be
+            reversed, and all the data inside it will be removed forever.
           </DialogDescription>
         </DialogHeader>
-        <DialogFooter className="items-center !justify-center !flex-col mt-6">
-          <Button onClick={() => setOpen(false)} variant={'destructive'} className="w-full">Yes, Confirm Deletion</Button>
-          <Button onClick={() => setOpen(false)} variant={'ghost'}>No, Go Back</Button>
-        </DialogFooter>
+        <form action="">
+          <DialogFooter className="items-center !justify-center !flex-col mt-6">
+            <Button
+              type="submit"
+              onClick={() => {
+                deleteBudget()
+                setOpen(false)
+              }}
+              variant={"destructive"}
+              className="w-full"
+            >
+              Yes, Confirm Deletion
+            </Button>
+            <Button onClick={() => setOpen(false)} variant={"ghost"}>
+              No, Go Back
+            </Button>
+          </DialogFooter>
+        </form>
       </DialogContent>
     </Dialog>
   )
