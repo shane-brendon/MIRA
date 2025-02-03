@@ -26,12 +26,13 @@ import { Label } from "@/components/ui/label"
 import { Plus } from "lucide-react"
 import { useState } from "react"
 import { createClient } from "@/utils/supabase/client"
+import { data } from "autoprefixer"
 
 // craete
-export function AddDialog({ text, title }: any) {
-  const [maxSpend, setMaxSpend] = useState("")
+export function PotsAddDialog({ text, title }: any) {
+  const [target, setTarget] = useState("")
   const [theme, setTheme] = useState("")
-  const [category, setCategory] = useState("")
+  const [potName, setPotName] = useState("")
   const [isSubmitting, setIsSubmitting] = useState(false)
 
   const supabase = createClient()
@@ -43,17 +44,11 @@ export function AddDialog({ text, title }: any) {
     { name: "Red", color: "#C94736" },
     { name: "Purple", color: "#826CB0" },
   ]
-  const CreateBudget = async () => {
+  const CreatePots = async () => {
     try {
-      const {
-        data: { user },
-      } = await supabase.auth.getUser()
-
       const { data, error } = await supabase
-        .from("budget")
-        .insert([
-          { title: category, total: maxSpend, theme: theme, user_id: user?.id },
-        ])
+        .from("pots")
+        .insert({ name: potName, target: target, theme: theme })
         .select()
     } catch (error) {
       console.log(error)
@@ -83,44 +78,28 @@ export function AddDialog({ text, title }: any) {
                 htmlFor="name"
                 className="text-left font-bold text-gray-900 opacity-50"
               >
-                Budget Category
-              </Label>
-              <Select value={category} onValueChange={(e) => setCategory(e)}>
-                <SelectTrigger className="col-span-4 rounded-[8px] bg-white">
-                  <SelectValue
-                    placeholder="Select a category"
-                    className="text-black"
-                  />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectGroup>
-                    <SelectLabel>Category</SelectLabel>
-                    <SelectItem value="Entertainment">Entertainment</SelectItem>
-                    <SelectItem value="Bills">Bills</SelectItem>
-                    <SelectItem value="Groceries">Groceries</SelectItem>
-                    <SelectItem value="Dining Out">Dining Out</SelectItem>
-                    <SelectItem value="Transportation">
-                      Transportation
-                    </SelectItem>
-                    <SelectItem value="Personal Care">Personal Care</SelectItem>
-                    <SelectItem value="Education">Education</SelectItem>
-                    <SelectItem value="Shopping">Shopping</SelectItem>
-                    <SelectItem value="lifestyle">lifestyle</SelectItem>
-                  </SelectGroup>
-                </SelectContent>
-              </Select>
-            </div>
-            <div className="grid grid-cols-4 items-center gap-2">
-              <Label
-                htmlFor="name"
-                className="text-left font-bold text-gray-900 opacity-50"
-              >
-                Maximum Spend
+                Pot Name
               </Label>
               <Input
                 id="name"
-                value={maxSpend}
-                onChange={(e) => setMaxSpend(e.target.value)}
+                value={potName}
+                onChange={(e) => setPotName(e.target.value)}
+                className="col-span-4"
+                type="text"
+                placeholder="e.g Rainy days"
+              />
+            </div>
+            <div className="grid grid-cols-4 items-center gap-2">
+              <Label
+                htmlFor="amount"
+                className="text-left font-bold text-gray-900 opacity-50"
+              >
+                Target
+              </Label>
+              <Input
+                id="amount"
+                value={target}
+                onChange={(e) => setTarget(e.target.value)}
                 className="col-span-4"
                 type="number"
                 placeholder="e.g Rs 3000"
@@ -163,14 +142,14 @@ export function AddDialog({ text, title }: any) {
             <Button
               type="submit"
               onClick={() => {
-                CreateBudget()
+                CreatePots()
                 setIsSubmitting(true)
               }}
               className={
                 isSubmitting ? " cursor-not-allowed pointer-events-none" : ""
               }
             >
-              Save changes
+              Add Pot
             </Button>
           </DialogFooter>
         </form>
@@ -179,26 +158,25 @@ export function AddDialog({ text, title }: any) {
   )
 }
 // update
-export function EditDialog({ text, id }: any) {
+export function PotsEditDialog({ text, id }: any) {
   const [open, setOpen] = useState(false)
-  const [maxSpend, setMaxSpend] = useState("")
+  const [target, setTarget] = useState("")
   const [theme, setTheme] = useState("")
-  const [category, setCategory] = useState("")
-
+  const [potName, setPotName] = useState("")
   const updateFields: Record<string, any> = {}
 
-  if (category !== undefined && category !== null && category !== "")
-    updateFields.title = category
-  if (maxSpend !== undefined && maxSpend !== null && maxSpend !== "")
-    updateFields.total = maxSpend
+  if (potName !== undefined && potName !== null && potName !== "")
+    updateFields.name = potName
+  if (target !== undefined && target !== null && target !== "")
+    updateFields.target = target
   if (theme !== undefined && theme !== null && theme !== "")
     updateFields.theme = theme
 
   const supabase = createClient()
-  const updateBudget = async () => {
+  const updatePots = async () => {
     try {
       const { data, error } = await supabase
-        .from("budget")
+        .from("pots")
         .update(updateFields)
         .eq("id", id)
         .select()
@@ -237,44 +215,28 @@ export function EditDialog({ text, id }: any) {
                 htmlFor="name"
                 className="text-left font-bold text-gray-900 opacity-50"
               >
-                Budget Category
-              </Label>
-              <Select value={category} onValueChange={(e) => setCategory(e)}>
-                <SelectTrigger className="col-span-4 rounded-[8px] bg-white">
-                  <SelectValue
-                    placeholder="Select a category"
-                    className="text-black"
-                  />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectGroup>
-                    <SelectLabel>Category</SelectLabel>
-                    <SelectItem value="Entertainment">Entertainment</SelectItem>
-                    <SelectItem value="Bills">Bills</SelectItem>
-                    <SelectItem value="Groceries">Groceries</SelectItem>
-                    <SelectItem value="Dining Out">Dining Out</SelectItem>
-                    <SelectItem value="Transportation">
-                      Transportation
-                    </SelectItem>
-                    <SelectItem value="Personal Care">Personal Care</SelectItem>
-                    <SelectItem value="Education">Education</SelectItem>
-                    <SelectItem value="Shopping">Shopping</SelectItem>
-                    <SelectItem value="lifestyle">lifestyle</SelectItem>
-                  </SelectGroup>
-                </SelectContent>
-              </Select>
-            </div>
-            <div className="grid grid-cols-4 items-center gap-2">
-              <Label
-                htmlFor="name"
-                className="text-left font-bold text-gray-900 opacity-50"
-              >
-                Maximum Spend
+                Pot Name
               </Label>
               <Input
                 id="name"
-                value={maxSpend}
-                onChange={(e) => setMaxSpend(e.target.value)}
+                value={potName}
+                onChange={(e) => setPotName(e.target.value)}
+                className="col-span-4"
+                type="text"
+                placeholder="e.g Rainy days"
+              />
+            </div>
+            <div className="grid grid-cols-4 items-center gap-2">
+              <Label
+                htmlFor="amount"
+                className="text-left font-bold text-gray-900 opacity-50"
+              >
+                Target
+              </Label>
+              <Input
+                id="amount"
+                value={target}
+                onChange={(e) => setTarget(e.target.value)}
                 className="col-span-4"
                 type="number"
                 placeholder="e.g Rs 3000"
@@ -339,7 +301,7 @@ export function EditDialog({ text, id }: any) {
             </div>
           </div>
           <DialogFooter>
-            <Button type="submit" onClick={() => updateBudget()}>
+            <Button type="submit" onClick={() => updatePots()}>
               Save changes
             </Button>
           </DialogFooter>
@@ -349,13 +311,13 @@ export function EditDialog({ text, id }: any) {
   )
 }
 //delete
-export function DeleteDialog({ text, id }: any) {
+export function PotsDeleteDialog({ text, id }: any) {
   const [open, setOpen] = useState(false)
 
   const supabase = createClient()
   const deleteBudget = async () => {
     try {
-      const { error } = await supabase.from("budget").delete().eq("id", id)
+      const { error } = await supabase.from("pots").delete().eq("id", id)
     } catch (error) {
       console.log(error)
     }
@@ -400,6 +362,92 @@ export function DeleteDialog({ text, id }: any) {
             </Button>
             <Button onClick={() => setOpen(false)} variant={"ghost"}>
               No, Go Back
+            </Button>
+          </DialogFooter>
+        </form>
+      </DialogContent>
+    </Dialog>
+  )
+}
+
+//add or funds into budget
+export function UpdateFundsDialog({ text, data: items }: any) {
+  const [open, setOpen] = useState(false)
+  const [total_saved, setTotal_saved] = useState(items.total_saved || 0)
+  const [addAmount, setAddAmount] = useState("")
+  const updateFields: Record<string, any> = {}
+
+  console.log(items)
+  if (total_saved !== undefined && total_saved !== null && total_saved !== "")
+    updateFields.total_saved = total_saved
+
+  const supabase = createClient()
+  const updatePots = async () => {
+    try {
+      const { data, error } = await supabase
+        .from("pots")
+        .update(updateFields)
+        .eq("id", items.id)
+        .select()
+    } catch (error) {
+      console.log(error)
+    }
+  }
+  return (
+    <Dialog open={open} onOpenChange={setOpen}>
+      <DialogTrigger asChild>
+        <Button
+          variant="offset"
+          className="w-full text-center px-4 font-bold"
+          onClick={(e) => {
+            e.preventDefault() // Prevents dropdown from closing
+            setOpen(true)
+          }}
+        >
+          {text}
+        </Button>
+      </DialogTrigger>
+      <DialogContent className="sm:max-w-[560px]">
+        <DialogHeader>
+          <DialogTitle>Edit profile</DialogTitle>
+
+          <span className="text-3xl font-bold mb-3">add Money to pots</span>
+          <DialogDescription>
+            Choose a category to set a spending budget. These categories can
+            help you monitor spending.
+          </DialogDescription>
+        </DialogHeader>
+        <form action="">
+          <div className="grid gap-4 py-4">
+            <div className="flex w-full items-center gap-2 justify-between">
+              <span className="opacity-50">New Amount</span>
+              <span className="text-3xl font-bold">${total_saved}</span>
+            </div>
+            <div className="grid grid-cols-4 items-center gap-2">
+              <Label
+                htmlFor="amount"
+                className="text-left font-bold text-gray-900 opacity-50"
+              >
+                Target
+              </Label>
+              <Input
+                id="add"
+                value={addAmount}
+                onChange={(e) => {
+                  setAddAmount(e.target.value)
+                  setTotal_saved(
+                    parseInt(items.total_saved) + parseInt(e.target.value)
+                  )
+                }}
+                className="col-span-4"
+                type="number"
+                placeholder="e.g Rs 3000"
+              />
+            </div>
+          </div>
+          <DialogFooter>
+            <Button type="submit" onClick={() => updatePots()}>
+              Save changes
             </Button>
           </DialogFooter>
         </form>
