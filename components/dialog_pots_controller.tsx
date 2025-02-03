@@ -370,16 +370,17 @@ export function PotsDeleteDialog({ text, id }: any) {
   )
 }
 
-//add or funds into budget
-export function UpdateFundsDialog({ text, data: items }: any) {
+//add funds into budget
+export function AddFundsDialog({ text, data: items }: any) {
   const [open, setOpen] = useState(false)
-  const [total_saved, setTotal_saved] = useState(items.total_saved || 0)
-  const [addAmount, setAddAmount] = useState("")
+  const [total_saved, setTotal_saved] = useState("")
+  const [addAmount, setAddAmount] = useState("0")
   const updateFields: Record<string, any> = {}
+  let currentTotal =
+    (items.total_saved || 0) + parseInt(addAmount ? addAmount : "0")
 
-  console.log(items)
   if (total_saved !== undefined && total_saved !== null && total_saved !== "")
-    updateFields.total_saved = total_saved
+    updateFields.total_saved = currentTotal
 
   const supabase = createClient()
   const updatePots = async () => {
@@ -420,24 +421,108 @@ export function UpdateFundsDialog({ text, data: items }: any) {
         <form action="">
           <div className="grid gap-4 py-4">
             <div className="flex w-full items-center gap-2 justify-between">
-              <span className="opacity-50">New Amount</span>
-              <span className="text-3xl font-bold">${total_saved}</span>
+              <span className="opacity-50 text-sm">New Amount</span>
+              <span className="text-3xl font-bold">${currentTotal}</span>
             </div>
             <div className="grid grid-cols-4 items-center gap-2">
               <Label
                 htmlFor="amount"
-                className="text-left font-bold text-gray-900 opacity-50"
+                className="text-left font-bold text-gray-900 opacity-50 col-span-2"
               >
-                Target
+               Amount to Add
               </Label>
               <Input
                 id="add"
                 value={addAmount}
                 onChange={(e) => {
                   setAddAmount(e.target.value)
-                  setTotal_saved(
-                    parseInt(items.total_saved) + parseInt(e.target.value)
-                  )
+                  setTotal_saved(currentTotal)
+                }}
+                className="col-span-4"
+                type="number"
+                placeholder="e.g Rs 3000"
+              />
+            </div>
+          </div>
+          <DialogFooter>
+            <Button type="submit" onClick={() => updatePots()}>
+              Save changes
+            </Button>
+          </DialogFooter>
+        </form>
+      </DialogContent>
+    </Dialog>
+  )
+}
+
+//substract funds from pots
+
+export function SubsFundsDialog({ text, data: items }: any) {
+  const [open, setOpen] = useState(false)
+  const [total_saved, setTotal_saved] = useState(0)
+  const [addAmount, setAddAmount] = useState("0")
+  const updateFields: Record<string, any> = {}
+  let currentTotal =
+    (items.total_saved || 0) - parseInt(addAmount ? addAmount : "0")
+
+  if (total_saved !== undefined && total_saved !== null)
+    updateFields.total_saved = currentTotal
+
+  const supabase = createClient()
+  const updatePots = async () => {
+    try {
+      const { data, error } = await supabase
+        .from("pots")
+        .update(updateFields)
+        .eq("id", items.id)
+        .select()
+    } catch (error) {
+      console.log(error)
+    }
+  }
+  return (
+    <Dialog open={open} onOpenChange={setOpen}>
+      <DialogTrigger asChild>
+        <Button
+          variant="offset"
+          className="w-full text-center px-4 font-bold"
+          onClick={(e) => {
+            e.preventDefault() // Prevents dropdown from closing
+            setOpen(true)
+          }}
+        >
+          {text}
+        </Button>
+      </DialogTrigger>
+      <DialogContent className="sm:max-w-[560px]">
+        <DialogHeader>
+          <DialogTitle>Edit profile</DialogTitle>
+
+          <span className="text-3xl font-bold mb-3">Withdraw from from pots</span>
+          <DialogDescription>
+            Choose a category to set a spending budget. These categories can
+            help you monitor spending.
+          </DialogDescription>
+        </DialogHeader>
+        <form action="">
+          <div className="grid gap-4 py-4">
+            <div className="flex w-full items-center gap-2 justify-between">
+              <span className="opacity-50 text-sm">New Amount</span>
+              <span className="text-3xl font-bold">${currentTotal}</span>
+            </div>
+            <div className="grid grid-cols-4 items-center gap-2">
+              <Label
+                htmlFor="amount"
+                className="text-left font-bold text-gray-900 opacity-50 col-span-2"
+              >
+                Amount to Withdraw
+              </Label>
+              <Input
+                id="add"
+                value={addAmount}
+                onChange={(e) => {
+                  setAddAmount(e.target.value)
+                  setTotal_saved(currentTotal)
                 }}
                 className="col-span-4"
                 type="number"

@@ -1,6 +1,7 @@
 import {
   PotsAddDialog,
-  UpdateFundsDialog,
+  AddFundsDialog,
+  SubsFundsDialog,
 } from "@/components/dialog_pots_controller"
 import { PotsDropdown } from "@/components/dropdownMenu"
 import { Button } from "@/components/ui/button"
@@ -43,11 +44,13 @@ function PotsItem({ data }: any) {
     { name: "Red", color: "#C94736" },
     { name: "Purple", color: "#826CB0" },
   ]
+
+  const color = themes.find((element) => element.name === data.theme)?.color
   return (
     <div className=" bg-white p-8 rounded-md w-full">
       <div className="flex justify-between mb-5">
         <div className="flex items-center gap-4">
-          <span className="block w-4 h-4 bg-cyan-900 rounded-3xl" />
+          <span className={`block w-4 h-4 bg-[${color}] rounded-3xl`} />
           <div className="font-bold text-xl">{data.name}</div>
         </div>
         <PotsDropdown data={data} />
@@ -64,10 +67,8 @@ function PotsItem({ data }: any) {
         <span className="text-gray-500">Target of Rs {data.target}</span>
       </div>
       <div className="flex gap-4">
-        <UpdateFundsDialog text=" + Add Money" data={data}/>
-        <Button className="w-full font-bold" variant={"offset"}>
-          Withdraw
-        </Button>
+        <AddFundsDialog text=" + Add Money" data={data} />
+        <SubsFundsDialog text="Withdraw" data={data} />
       </div>
     </div>
   )

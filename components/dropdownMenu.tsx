@@ -47,14 +47,14 @@ export function PotsDropdown({ data }: any) {
       <DropdownMenuContent className="p-4 px-4">
         <DropdownMenuGroup>
           <DropdownMenuItem asChild>
-            <PotsEditDialog text="Edit Pot" className="pl-0" data={data} />
+            <PotsEditDialog text="Edit Pots" className="pl-0" id={data.id} />
           </DropdownMenuItem>
           <DropdownMenuSeparator />
           <DropdownMenuItem asChild>
             <PotsDeleteDialog
-              text="Delete Pot"
+              text="Delete Pots"
               className="text-red-700 pl-0"
-              data={data}
+              id={data.id}
             />
           </DropdownMenuItem>
         </DropdownMenuGroup>
