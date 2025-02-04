@@ -62,7 +62,7 @@ function PotsItem({ data }: any) {
       <Progress value={33} />
       <div className="flex justify-between items-center mt-3 text-xs mb-10">
         <span className="font-bold text-gray-500">
-          {(data.total_saved / data.target) * 100}%
+          {Math.round((data.total_saved / data.target) * 100)}%
         </span>
         <span className="text-gray-500">Target of Rs {data.target}</span>
       </div>
