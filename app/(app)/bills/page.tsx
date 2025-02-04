@@ -1,3 +1,4 @@
+import { BillsAddDialog } from "@/components/dialog_bills_controller"
 import { Button } from "@/components/ui/button"
 import {
   Table,
@@ -17,9 +18,7 @@ const Bills = () => {
         <h1 className="text-3xl text-gray-900 font-bold mb-8">
           Recurring Bills
         </h1>
-        <Button>
-          <Plus /> Add Recurring Bills
-        </Button>
+        <BillsAddDialog text="Add Recurring Bills" />
       </div>
       <div className="flex gap-5 items-start flex-col md:flex-row">
         <div className="w-full md:w-2/6">
