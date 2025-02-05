@@ -36,19 +36,20 @@ export function BillsAddDialog({ text, title }: any) {
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [date, setDate] = useState<Date | undefined>(new Date())
 
-  const payday = date?.getDate
   const supabase = createClient()
+
   const CreateBills = async () => {
     try {
+      const payday = date ? date.toISOString() : null
       const { data, error } = await supabase
         .from("bills")
         .insert({ title: name, amount: amount, due_date: payday })
         .select()
     } catch (error) {
-      console.log(error)
+      console.log("Unexpected error:", error)
     }
   }
-
+  console.log(date)
   return (
     <Dialog>
       <DialogTrigger asChild>
@@ -118,7 +119,7 @@ export function BillsAddDialog({ text, title }: any) {
                 isSubmitting ? " cursor-not-allowed pointer-events-none" : ""
               }
             >
-              Add Pot
+              Add Recurring Bill
             </Button>
           </DialogFooter>
         </form>

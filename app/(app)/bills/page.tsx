@@ -8,10 +8,20 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table"
-import { CircleAlert, CircleCheck, Plus, ReceiptText } from "lucide-react"
+import { createClient } from "@/utils/supabase/server"
+import { CircleAlert, CircleCheck, ReceiptText } from "lucide-react"
 import React from "react"
 
-const Bills = () => {
+const Bills = async () => {
+  const supabase = await createClient()
+
+  const { data, error } = await supabase.from("bills").select("*")
+  if (error) {
+    console.error("Error fetching budgets:", error.message)
+    return null
+  }
+
+  console.log(data)
   return (
     <div className="container pb-5">
       <div className="flex justify-between flex-col mb-5 md:flex-row md:mb-0">
@@ -27,10 +37,15 @@ const Bills = () => {
             <span className="mt-5 block text-sm mb-3 opacity-80">
               Total Bills
             </span>
-            <span className="block font-bold text-3xl">$384.98</span>
+            <span className="block font-bold text-3xl">
+              {`Rs
+               ${data
+                 .map((item) => item.amount)
+                 .reduce((prev, next) => prev + next)}`}
+            </span>
           </div>
 
-          <div className="p-6 bg-white text-gray-900 rounded-md mt-6">
+          {/* <div className="p-6 bg-white text-gray-900 rounded-md mt-6">
             <span className="font-bold text-xl">Summary</span>
             <Table className="mt-1">
               <TableBody>
@@ -58,7 +73,7 @@ const Bills = () => {
                 </TableRow>
               </TableBody>
             </Table>
-          </div>
+          </div> */}
         </div>
 
         <div className="w-full bg-white rounded-md p-8">
@@ -71,40 +86,9 @@ const Bills = () => {
               </TableRow>
             </TableHeader>
             <TableBody>
-              <TableRow>
-                <TableCell className="font-medium">
-                  <div className="flex items-center gap-4">
-                    <div className="w-8 h-8 bg-lime-400 grid place-items-center rounded-full font-bold">
-                      E
-                    </div>
-                    <div className="text-sm font-bold">Emma Richardson</div>
-                  </div>
-                </TableCell>
-                <TableCell className="text-green-600 flex items-center gap-2">
-                  {" "}
-                  Monthly - 2nd <CircleCheck />
-                </TableCell>
-                <TableCell className="text-right text-gray-900 text-sm font-bold">
-                  $100.00
-                </TableCell>
-              </TableRow>
-              <TableRow>
-                <TableCell className="font-medium">
-                  <div className="flex items-center gap-4">
-                    <div className="w-8 h-8 bg-lime-400 grid place-items-center rounded-full font-bold">
-                      E
-                    </div>
-                    <div className="text-sm font-bold">Emma Richardson</div>
-                  </div>
-                </TableCell>
-                <TableCell className="text-red-600 flex items-center gap-2">
-                  {" "}
-                  Monthly - 2nd <CircleAlert />{" "}
-                </TableCell>
-                <TableCell className="text-right text-gray-900 text-sm font-bold">
-                  $100.00
-                </TableCell>
-              </TableRow>
+              {data.map((item, index) => (
+                <BillsItem data={item} key={index} />
+              ))}
             </TableBody>
           </Table>
         </div>
@@ -114,3 +98,35 @@ const Bills = () => {
 }
 
 export default Bills
+
+function BillsItem({ data }: any) {
+  function getOrdinalDate(day: any) {
+    const date = day?.split("-")[2].split("T")[0] || 8
+    const suffixes = ["th", "st", "nd", "rd"]
+    const mod10 = date % 10
+    const mod100 = date % 100
+    const suffix =
+      mod10 > 3 || (mod100 >= 11 && mod100 <= 13) ? "th" : suffixes[mod10]
+    return `${date}${suffix}`
+  }
+  return (
+    <>
+      <TableRow>
+        <TableCell className="font-medium">
+          <div className="flex items-center gap-4">
+            <div className="w-8 h-8 bg-lime-400 grid place-items-center rounded-full font-bold">
+              {data.title[0].toUpperCase()}
+            </div>
+            <div className="text-sm font-bold">{data.title.toUpperCase()}</div>
+          </div>
+        </TableCell>
+        <TableCell className="text-green-600 flex items-center gap-2">
+          Monthly - {getOrdinalDate(data.due_date)} <CircleCheck />
+        </TableCell>
+        <TableCell className="text-right text-gray-900 text-sm font-bold">
+          Rs {data.amount}
+        </TableCell>
+      </TableRow>
+    </>
+  )
+}
