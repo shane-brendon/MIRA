@@ -310,6 +310,7 @@ export function PotsEditDialog({ text, id }: any) {
     </Dialog>
   )
 }
+
 //delete
 export function PotsDeleteDialog({ text, id }: any) {
   const [open, setOpen] = useState(false)
@@ -456,7 +457,6 @@ export function AddFundsDialog({ text, data: items }: any) {
 }
 
 //substract funds from pots
-
 export function SubsFundsDialog({ text, data: items }: any) {
   const [open, setOpen] = useState(false)
   const [total_saved, setTotal_saved] = useState(0)
