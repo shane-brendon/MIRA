@@ -2,6 +2,7 @@ import React from "react"
 import SavingSvg from "../icons/SavingSvg"
 import { ChevronRight } from "lucide-react"
 import { DonutPieChart } from "../piechart"
+import Link from "next/link"
 
 const Overview = async () => {
   return (
@@ -14,11 +15,11 @@ const Overview = async () => {
             <span className="block font-bold text-3xl pt-3">$4,836.00</span>
           </div>
           <div className=" bg-white text-gray-900 py-6 px-6 rounded-sm w-full md:max-w-[338px]">
-            <span className=" text-sm">Current Balance</span>
+            <span className=" text-sm">Monthly Income</span>
             <span className="block font-bold text-3xl pt-3">$4,836.00</span>
           </div>
           <div className=" bg-white text-gray-900 py-6 px-6 rounded-sm w-full md:max-w-[338px]">
-            <span className=" text-sm">Current Balance</span>
+            <span className=" text-sm">Expenses</span>
             <span className="block font-bold text-3xl pt-3">$4,836.00</span>
           </div>
         </div>
@@ -29,9 +30,12 @@ const Overview = async () => {
             <div className="bg-white w-full p-8 rounded-md  mb-5">
               <div className="flex justify-between items-center mb-5">
                 <span className="font-bold text-xl">pots</span>
-                <span className="text-gray-400 flex items-center">
+                <Link
+                  href={"/pots"}
+                  className="text-gray-400 flex items-center"
+                >
                   see Details <ChevronRight />
-                </span>
+                </Link>
               </div>
               <div className="flex gap-6 items-center flex-col md:flex-row md:justify-center">
                 <div className="flex items-center gap-4 bg-background py-5 pl-4 rounded-md w-full md:w-2/5">
@@ -77,9 +81,12 @@ const Overview = async () => {
             <div className="bg-white w-full p-8 rounded-md">
               <div className="flex justify-between items-center mb-8">
                 <span className="font-bold text-xl">Transactions</span>
-                <span className="text-gray-400 flex items-center">
+                <Link
+                  href={"/transaction"}
+                  className="text-gray-400 flex items-center"
+                >
                   see Details <ChevronRight />
-                </span>
+                </Link>
               </div>
               <div className="flex justify-between items-center pb-5  mb-5 border-b">
                 <div className="flex items-center gap-4">
@@ -131,18 +138,24 @@ const Overview = async () => {
             <div className="mb-5 bg-white p-8 rounded-md">
               <div className="flex justify-between items-center">
                 <span className="font-bold text-xl">Budgets</span>
-                <span className="text-gray-400 flex items-center">
+                <Link
+                  href={"/budgets"}
+                  className="text-gray-400 flex items-center"
+                >
                   see Details <ChevronRight />
-                </span>
+                </Link>
               </div>
               <DonutPieChart />
             </div>
             <div className="mb-5 bg-white p-8 rounded-md">
               <div className="flex justify-between items-center mb-8">
                 <span className="font-bold text-xl">Recurring Bills</span>
-                <span className="text-gray-400 flex items-center">
+                <Link
+                  href={"/bills"}
+                  className="text-gray-400 flex items-center"
+                >
                   see Details <ChevronRight />
-                </span>
+                </Link>
               </div>
 
               <div className="flex justify-between border-l-4 px-4 rounded-xl bg-background py-5 border-l-teal-950 mb-3">
