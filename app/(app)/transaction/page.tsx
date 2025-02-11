@@ -22,29 +22,42 @@ const Transaction = async () => {
     return null
   }
 
-  console.log(data)
+  const hasData = data.length > 0 ? true : false
   return (
     <div className="container pb-5">
       <div className="flex justify-between flex-col mb-5 md:flex-row md:mb-0">
         <h1 className="text-3xl text-gray-900 font-bold mb-8">Transaction</h1>
-        <TransactionAddDialog text="Add New Transaction" />
+        {hasData && <TransactionAddDialog text="Add New Transaction" />}
       </div>
       <div className="bg-white p-8 rounded-md">
-        <Table>
-          <TableHeader>
-            <TableRow>
-              <TableHead className="text-left">Recipient / Sender</TableHead>
-              <TableHead>Category</TableHead>
-              <TableHead>Transaction Date</TableHead>
-              <TableHead className="text-right">Amount</TableHead>
-            </TableRow>
-          </TableHeader>
-          <TableBody>
-            {data.map((item, index) => (
-              <TransactionItem data={item} key={index} />
-            ))}
-          </TableBody>
-        </Table>
+        {hasData ? (
+          <>
+            <Table>
+              <TableHeader>
+                <TableRow>
+                  <TableHead className="text-left">
+                    Recipient / Sender
+                  </TableHead>
+                  <TableHead>Category</TableHead>
+                  <TableHead>Transaction Date</TableHead>
+                  <TableHead className="text-right">Amount</TableHead>
+                </TableRow>
+              </TableHeader>
+              <TableBody>
+                {data.map((item, index) => (
+                  <TransactionItem data={item} key={index} />
+                ))}
+              </TableBody>
+            </Table>
+          </>
+        ) : (
+          <div className="text-center min-h-[70vh] flex flex-col items-center justify-center gap-4">
+            <h2 className="text-2xl font-bold capitalize">Please add a transaction</h2>
+            <div>
+              <TransactionAddDialog text="Add New Transaction" />
+            </div>
+          </div>
+        )}
       </div>
     </div>
   )
@@ -53,7 +66,6 @@ const Transaction = async () => {
 export default Transaction
 
 function TransactionItem({ data }: any) {
-  console.log(data)
   return (
     <TableRow>
       <TableCell className="font-medium">

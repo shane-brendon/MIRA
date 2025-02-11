@@ -21,31 +21,35 @@ const Bills = async () => {
     return null
   }
 
-  console.log(data)
+  const hasData = data.length > 0 ? true : false
+
+  const total = hasData
+    ? data.map((item) => item.amount).reduce((prev, next) => prev + next)
+    : 0
+
   return (
     <div className="container pb-5">
       <div className="flex justify-between flex-col mb-5 md:flex-row md:mb-0">
         <h1 className="text-3xl text-gray-900 font-bold mb-8">
           Recurring Bills
         </h1>
-        <BillsAddDialog text="Add Recurring Bills" />
+        {hasData && <BillsAddDialog text="Add Recurring Bills" />}
       </div>
-      <div className="flex gap-5 items-start flex-col md:flex-row">
-        <div className="w-full md:w-2/6">
-          <div className="p-6 bg-gray-900 text-white rounded-md">
-            <ReceiptText />
-            <span className="mt-5 block text-sm mb-3 opacity-80">
-              Total Bills
-            </span>
-            <span className="block font-bold text-3xl">
-              {`Rs
-               ${data
-                 .map((item) => item.amount)
-                 .reduce((prev, next) => prev + next)}`}
-            </span>
-          </div>
+      {hasData ? (
+        <div className="flex gap-5 items-start flex-col md:flex-row">
+          <div className="w-full md:w-2/6">
+            <div className="p-6 bg-gray-900 text-white rounded-md">
+              <ReceiptText />
+              <span className="mt-5 block text-sm mb-3 opacity-80">
+                Total Bills
+              </span>
+              <span className="block font-bold text-3xl">
+                {`Rs
+               ${total}`}
+              </span>
+            </div>
 
-          {/* <div className="p-6 bg-white text-gray-900 rounded-md mt-6">
+            {/* <div className="p-6 bg-white text-gray-900 rounded-md mt-6">
             <span className="font-bold text-xl">Summary</span>
             <Table className="mt-1">
               <TableBody>
@@ -74,25 +78,37 @@ const Bills = async () => {
               </TableBody>
             </Table>
           </div> */}
-        </div>
+          </div>
 
-        <div className="w-full bg-white rounded-md p-8">
-          <Table>
-            <TableHeader>
-              <TableRow>
-                <TableHead className="text-left">Bill Title</TableHead>
-                <TableHead>Due Date</TableHead>
-                <TableHead className="text-right">Amount</TableHead>
-              </TableRow>
-            </TableHeader>
-            <TableBody>
-              {data.map((item, index) => (
-                <BillsItem data={item} key={index} />
-              ))}
-            </TableBody>
-          </Table>
+          <div className="w-full bg-white rounded-md p-8">
+            <Table>
+              <TableHeader>
+                <TableRow>
+                  <TableHead className="text-left">Bill Title</TableHead>
+                  <TableHead>Due Date</TableHead>
+                  <TableHead className="text-right">Amount</TableHead>
+                </TableRow>
+              </TableHeader>
+              <TableBody>
+                {data.map((item, index) => (
+                  <BillsItem data={item} key={index} />
+                ))}
+              </TableBody>
+            </Table>
+          </div>
         </div>
-      </div>
+      ) : (
+        <div className="bg-white p-8 rounded-md">
+          <div className="text-center min-h-[70vh] flex flex-col items-center justify-center gap-4">
+            <h2 className="text-2xl font-bold capitalize">
+              Please add a Recurring Bill
+            </h2>
+            <div>
+              <BillsAddDialog text="Add Recurring Bills" />
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   )
 }

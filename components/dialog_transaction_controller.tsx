@@ -86,7 +86,7 @@ export function TransactionAddDialog({ text, title }: any) {
                 onChange={(e) => setName(e.target.value)}
                 className="col-span-4"
                 type="text"
-                placeholder="e.g Rainy days"
+                placeholder="e.g John Doe"
               />
             </div>
             <div className="grid grid-cols-4 items-center gap-2">

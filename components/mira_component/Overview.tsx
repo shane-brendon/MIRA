@@ -135,7 +135,7 @@ const Overview = async () => {
             </div>
           </div>
           <div className="md:w-2/5 ">
-            <div className="mb-5 bg-white p-8 rounded-md">
+            {/* <div className="mb-5 bg-white p-8 rounded-md">
               <div className="flex justify-between items-center">
                 <span className="font-bold text-xl">Budgets</span>
                 <Link
@@ -146,7 +146,7 @@ const Overview = async () => {
                 </Link>
               </div>
               <DonutPieChart />
-            </div>
+            </div> */}
             <div className="mb-5 bg-white p-8 rounded-md">
               <div className="flex justify-between items-center mb-8">
                 <span className="font-bold text-xl">Recurring Bills</span>

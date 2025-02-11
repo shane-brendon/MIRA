@@ -12,30 +12,41 @@ const Budgets = async () => {
   const supabase = await createClient()
 
   const { data, error } = await supabase.from("budget").select("*")
-  console.log(data)
   if (error) {
     console.error("Error fetching budgets:", error.message)
     return null
   }
-
+  const hasData = data.length > 0 ? true : false
   return (
     <div className="container">
       <div className="flex justify-between">
         <h1 className="text-3xl text-gray-900 font-bold mb-8">Budget</h1>
-        <AddDialog text={"Add New Budget"} />
+        {hasData && <AddDialog text={"Add New Budget"} />}
       </div>
-      <div className="flex flex-col md:flex-row md:gap-8">
-        <div className="md:w-3/5 ">
-          <div className="mb-5 bg-white p-8 rounded-md">
-            <DonutPieChart />
-          </div>
-        </div>
-        <div className=" w-full">
+      {hasData ? (
+        <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+          {/* <div className="md:w-3/5 ">
+              <div className="mb-5 bg-white p-8 rounded-md">
+                <DonutPieChart />
+              </div>
+            </div> */}
+
           {data.map((item, index) => (
             <BudgetItem data={item} key={index} />
           ))}
         </div>
-      </div>
+      ) : (
+        <div className="bg-white p-8 rounded-md">
+          <div className="text-center min-h-[70vh] flex flex-col items-center justify-center gap-4">
+            <h2 className="text-2xl font-bold capitalize">
+              Please add a budget
+            </h2>
+            <div>
+              <AddDialog text={"Add New Budget"} />
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   )
 }
@@ -50,7 +61,7 @@ function BudgetItem({ data }: any) {
     { name: "Red", color: "#C94736" },
     { name: "Purple", color: "#826CB0" },
   ]
-  const color = themes.find((element) => element.name === data.theme)?.color;
+  const color = themes.find((element) => element.name === data.theme)?.color
   return (
     <div className="mb-5 bg-white p-8 rounded-md">
       <div className="flex justify-between mb-5">

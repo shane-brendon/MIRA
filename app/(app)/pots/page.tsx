@@ -18,17 +18,31 @@ const Pots = async () => {
     console.error("Error fetching budgets:", error.message)
     return null
   }
+
+  const hasData = data.length > 0 ? true : false
+
   return (
     <div className="container pb-5">
       <div className="flex justify-between">
         <h1 className="text-3xl text-gray-900 font-bold mb-8">Pots</h1>
-        <PotsAddDialog text={"Add New Pot"} />
+        {hasData && <PotsAddDialog text={"Add New Pot"} />}
       </div>
-      <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
-        {data.map((item, index) => (
-          <PotsItem data={item} key={index} />
-        ))}
-      </div>
+      {hasData ? (
+        <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+          {data.map((item, index) => (
+            <PotsItem data={item} key={index} />
+          ))}
+        </div>
+      ) : (
+        <div className="bg-white p-8 rounded-md">
+          <div className="text-center min-h-[70vh] flex flex-col items-center justify-center gap-4">
+            <h2 className="text-2xl font-bold capitalize">Please add a Pot</h2>
+            <div>
+              <PotsAddDialog text={"Add New Pot"} />
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   )
 }
