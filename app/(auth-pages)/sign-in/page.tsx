@@ -45,8 +45,19 @@ export default async function Login(props: { searchParams: Promise<Message> }) {
           >
             Sign in
           </SubmitButton>
-          <div className="text-center mt-8">
+          {/* <div className="text-center mt-8">
             <p>Need to create an account? <Link href={'/sign-up'}  className="text-primary font-bold underline">sign up</Link></p>
+          </div> */}
+          <div className="text-left mt-8">
+            <p>
+              As we are still work in progress, please the following credentials :
+            </p>
+            <p className="mt-3">
+              Email : <strong>test@gmail.com</strong>
+            </p>
+            <p>
+              Password : <strong>12345678</strong>
+            </p>
           </div>
           <FormMessage message={searchParams} />
         </div>
